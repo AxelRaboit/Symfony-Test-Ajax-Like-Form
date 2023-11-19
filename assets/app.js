@@ -38,3 +38,44 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const contactForm = document.getElementById('contact-form');
+    const contactSubmissions = document.getElementById('contact-submissions');
+    const successMessage = document.createElement('div');
+
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(contactForm);
+
+        fetch('/contact', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const submissionDiv = document.createElement('div');
+                    submissionDiv.classList.add('submission');
+                    submissionDiv.innerHTML = `<p><strong>${data.formData.subject}</strong></p><p>${data.formData.body}</p>`;
+
+                    contactSubmissions.prepend(submissionDiv);
+
+                    successMessage.textContent = 'Votre message a été envoyé avec succès!';
+                    successMessage.classList.add('success-message');
+                    contactForm.appendChild(successMessage);
+
+                    setTimeout(() => successMessage.remove(), 3000);
+
+                    contactForm.reset();
+                } else {
+                    console.error('Submission error', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+});
+
+

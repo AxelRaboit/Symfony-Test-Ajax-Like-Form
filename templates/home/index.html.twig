@@ -39,4 +39,31 @@
             </article>
         {% endfor %}
     </div>
+
+    <div class="container-form">
+        <h2>Contact</h2>
+        <form id="contact-form">
+            <div class="form-group">
+                <label for="contact-subject">Subject</label>
+                <input id="contact-subject" name="contact-subject" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="contact-body">Body</label>
+                <textarea id="contact-body" name="contact-body" class="form-control" required></textarea>
+            </div>
+            <button type="submit" id="contact-button">Envoyer</button>
+        </form>
+    </div>
+
+    <div class="container-form-submissions">
+        <div id="contact-submissions">
+            {% for contact in contacts %}
+                <div class="submission">
+                    <p><strong>{{ contact.subject }}</strong></p>
+                    <p>{{ contact.body }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}

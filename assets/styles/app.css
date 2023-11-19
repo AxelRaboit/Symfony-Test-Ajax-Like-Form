@@ -72,3 +72,60 @@ article {
 h2 {
     margin: 0;
 }
+
+.submission:first-child {
+    margin-top: 1rem;
+}
+
+.submission {
+    background-color: #cccccc;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    padding: .5rem;
+}
+
+.container-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-form h2 {
+    margin-bottom: 1rem;
+}
+
+#contact-form {
+    max-width: 1200px;
+    width: 100%;
+}
+#contact-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+#contact-form .form-group label {
+    margin-bottom: .5rem;
+    font-weight: bold;
+}
+
+#contact-form textarea, input {
+    margin-bottom: 1rem;
+}
+
+#contact-form #contact-button {
+    border-radius: 5px;
+    background-color: #3b82f6;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px 25px;
+    width: 100%;
+}
+
+.success-message {
+    margin-top: 1rem;
+    color: green;
+    font-weight: bold;
+    text-align: center;
+}
