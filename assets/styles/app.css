@@ -6,6 +6,11 @@ body {
     margin: 1rem;
 }
 
+.container-article {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .container-like-button, .like-button {
     border-radius: 5px;
     background-color: #3b82f6;
