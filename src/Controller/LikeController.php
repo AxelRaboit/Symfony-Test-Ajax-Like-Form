@@ -24,7 +24,11 @@ class LikeController extends AbstractController
             return $this->json(['error' => 'User not logged in'], 403);
         }
 
-        $response = $likeService->persistLike($article, $user);
+        $response = $likeService->addOrRemoveLike($article, $user);
+
+        if ($response['status'] === 'error') {
+            return $this->json(['error' => 'Something went wrong'], 500);
+        }
 
         return $this->json(['status' => $response['status'], 'likes' => $response['likeCount']]);
     }
