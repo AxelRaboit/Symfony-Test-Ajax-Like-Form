@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .container-like-button, .like-button {
+            border-radius: 5px;
+            background-color: #3b82f6;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .container-like-button {
+            border: none;
+            width: fit-content;
+        }
+
+        .like-button {
+            padding: 10px 25px;
+            width: 100%;
+        }
+
+        article {
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #cccccc;
+            width: 400px;
+            padding: 10px;
+        }
+
+        h2 {
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Liste des articles</h1>
+    {% for article in articles %}
+        <article>
+            <div class="container-article">
+                <h2>{{ article.title }}</h2>
+                <p>{{ article.description }}</p>
+                <div data-user-id="{{ app.user ? app.user.id : null }}"></div>
+                <div class="container-like-button">
+                    <button id="like-button-{{ article.id }}" class="like-button" data-article="{{ article.id }}">
+                        {% if app.user %}
+                            <i id="like-icon-{{ article.id }}" class="{{ app.user.hasLikedArticle(article) ? 'fas' : 'far' }} fa-thumbs-up"></i>
+                        {% else %}
+                            <i id="like-icon-{{ article.id }}" class="far fa-thumbs-up"></i>
+                        {% endif %}
+                        <span id="like-count-{{ article.id }}">{{ article.likes|length }}</span>
+                    </button>
+                </div>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const likeButtons = document.querySelectorAll('.like-button');
+
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+
+                    if (!document.querySelector('[data-user-id]').dataset.userId) {
+                        window.location.href = '/login';
+                        return;
+                    }
+
+                    const articleId = this.dataset.article;
+
+                    fetch(`/like/${articleId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('like-count-' + articleId).innerText = data.likes;
+                        const likeIcon = document.getElementById('like-icon-' + articleId);
+
+                        if (data.status === 'like_added') {
+                            likeIcon.classList.remove('far');
+                            likeIcon.classList.add('fas');
+                        } else {
+                            likeIcon.classList.remove('fas');
+                            likeIcon.classList.add('far');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}
