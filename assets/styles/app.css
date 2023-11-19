@@ -1,6 +1,11 @@
 * {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
+
+body {
+    margin: 1rem;
+}
+
 .container-like-button, .like-button {
     border-radius: 5px;
     background-color: #3b82f6;
@@ -21,6 +26,7 @@
 
 article {
     margin-bottom: 20px;
+    margin-right: 1rem;
     border-radius: 5px;
     background-color: #cccccc;
     width: 400px;

@@ -4,9 +4,9 @@
 
 {% block body %}
     <h1>Liste des articles</h1>
-    {% for article in articles %}
-        <article>
-            <div class="container-article">
+    <div class="container-article">
+        {% for article in articles %}
+            <article>
                 <h2>{{ article.title }}</h2>
                 <p>{{ article.description }}</p>
                 <div data-user-id="{{ app.user ? app.user.id : null }}"></div>
@@ -20,7 +20,7 @@
                         <span id="like-count-{{ article.id }}">{{ article.likes|length }}</span>
                     </button>
                 </div>
-            </div>
-        </article>
-    {% endfor %}
+            </article>
+        {% endfor %}
+    </div>
 {% endblock %}
