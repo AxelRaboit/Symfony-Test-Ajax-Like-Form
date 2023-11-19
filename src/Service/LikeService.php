@@ -27,20 +27,32 @@ class LikeService
         $like = $this->likeRepository->findOneBy(['article' => $article, 'person' => $user]);
 
         if ($like) {
-            $this->entityManager->remove($like);
-            $this->entityManager->flush();
+            $this->removeAndFlush($like);
             $result['status'] = Like::LIKE_REMOVED;
         } else {
             $like = new Like();
             $like->setArticle($article);
             $like->setPerson($user);
-            $this->entityManager->persist($like);
-            $this->entityManager->flush();
+            $this->persistAndFlush($like);
             $result['status'] = Like::LIKE_ADDED;
         }
 
         $result['likeCount'] = $this->likeRepository->count(['article' => $article]);
 
         return $result;
+    }
+
+    // base
+
+    public function persistAndFlush(object $entity): void
+    {
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+    }
+
+    public function removeAndFlush(object $entity): void
+    {
+        $this->entityManager->remove($entity);
+        $this->entityManager->flush();
     }
 }
