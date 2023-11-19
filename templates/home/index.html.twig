@@ -10,15 +10,20 @@
                 <h2>{{ article.title }}</h2>
                 <p>{{ article.description }}</p>
                 <div data-user-id="{{ app.user ? app.user.id : null }}"></div>
-                <div class="container-like-button">
-                    <button id="like-button-{{ article.id }}" class="like-button" data-article="{{ article.id }}">
-                        {% if app.user %}
-                            <i id="like-icon-{{ article.id }}" class="{{ app.user.hasLikedArticle(article) ? 'fas' : 'far' }} fa-thumbs-up"></i>
-                        {% else %}
-                            <i id="like-icon-{{ article.id }}" class="far fa-thumbs-up"></i>
-                        {% endif %}
-                        <span id="like-count-{{ article.id }}">{{ article.likes|length }}</span>
-                    </button>
+                <div class="container-buttons">
+                    <div class="container-like-button">
+                        <button id="like-button-{{ article.id }}" class="like-button" data-article="{{ article.id }}">
+                            {% if app.user %}
+                                <i id="like-icon-{{ article.id }}" class="{{ app.user.hasLikedArticle(article) ? 'fas' : 'far' }} fa-thumbs-up"></i>
+                            {% else %}
+                                <i id="like-icon-{{ article.id }}" class="far fa-thumbs-up"></i>
+                            {% endif %}
+                            <span id="like-count-{{ article.id }}">{{ article.likes|length }}</span>
+                        </button>
+                    </div>
+                    <a href="{{ path('article_show', {id: article.id}) }}" class="discover-button">
+                        Lire la suite...
+                    </a>
                 </div>
             </article>
         {% endfor %}

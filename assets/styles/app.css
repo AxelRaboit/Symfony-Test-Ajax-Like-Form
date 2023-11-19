@@ -11,7 +11,11 @@ body {
     flex-wrap: wrap;
 }
 
-.container-like-button, .like-button {
+.container-buttons {
+    display: flex;
+}
+
+.container-like-button, .like-button, .discover-button {
     border-radius: 5px;
     background-color: #3b82f6;
     border: none;
@@ -19,9 +23,19 @@ body {
     cursor: pointer;
 }
 
+.discover-button {
+    padding: 0 25px;
+    margin: 0;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .container-like-button {
     border: none;
     width: fit-content;
+    margin-right: 1rem;
 }
 
 .like-button {
