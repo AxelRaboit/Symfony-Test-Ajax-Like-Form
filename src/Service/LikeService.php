@@ -21,7 +21,6 @@ class LikeService
         User $user
     ): array
     {
-
         $result = [];
 
         $like = $this->likeRepository->findOneBy(['article' => $article, 'person' => $user]);
